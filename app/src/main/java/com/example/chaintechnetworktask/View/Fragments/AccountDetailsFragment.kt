@@ -24,9 +24,6 @@ import kotlinx.coroutines.withContext
 class AccountDetailsFragment : BottomSheetDialogFragment() {
 
     lateinit var binding: FragmentAccountDetailsBinding
-
-    var updatePassword = SavedPasswordEntity()
-
     lateinit var viewModel: MainViewModel
     var passwordId: Int = 0
     @SuppressLint("ClickableViewAccessibility")
@@ -82,26 +79,24 @@ class AccountDetailsFragment : BottomSheetDialogFragment() {
             val password = binding.edAccountPassword.text.toString().trim()
 
 
-            updateSavedPasswords(accountName = name, usernameEmail = username, password = password)
+            if (name.isNotEmpty() && username.isNotEmpty() && password.isNotEmpty()) {
+                updateSavedPasswords(
+                    accountName = name,
+                    usernameEmail = username,
+                    password = password
+                )
+            } else {
+                if (binding.edAccountType.text.isEmpty()) {
+                    binding.edAccountType.error = "Please fill Account Name"
+                }
+                if (binding.edAccountUserNameEmail.text.isEmpty()) {
+                    binding.edAccountUserNameEmail.error = "Please fill Username/Email"
+                }
+                if (binding.edAccountPassword.text.isEmpty()) {
+                    binding.edAccountPassword.error = "Please fill Password"
+                }
 
-//            updatePassword.accountName =
-//            updatePassword.userName_Email =
-//            updatePassword.password =
-//            if (updatePassword.accountName!!.isNotEmpty() && updatePassword.userName_Email!!.isNotEmpty() && updatePassword.password!!.isNotEmpty()) {
-//
-//            }
-//        } else {
-////            if (binding.edAccountType.text.isEmpty()) {
-////                binding.edAccountType.error = "Please fill Account Name"
-////            }
-////            if (binding.edAccountUserNameEmail.text.isEmpty()) {
-////                binding.edAccountUserNameEmail.error = "Please fill Username/Email"
-////            }
-////            if (binding.edAccountPassword.text.isEmpty()) {
-////                binding.edAccountPassword.error = "Please fill Password"
-////            }
-//////        }
-//        }
+            }
         }
         return binding.root
     }
@@ -114,7 +109,6 @@ class AccountDetailsFragment : BottomSheetDialogFragment() {
     ) {
         lifecycleScope.launch {
             val updatedPassword = SavedPasswordEntity()
-
             updatedPassword.accountName = accountName
             updatedPassword.userName_Email = usernameEmail
             updatedPassword.password = password
@@ -144,13 +138,17 @@ class AccountDetailsFragment : BottomSheetDialogFragment() {
 
     private fun getData() {
         val bundle = arguments
-        passwordId = bundle!!.getInt("id")
-        val name = bundle.getString("name")
-        val userName = bundle.getString("user_name")
-        val password = bundle.getString("password")
-        binding.edAccountType.setText(name)
-        binding.edAccountUserNameEmail.setText(userName)
-        binding.edAccountPassword.setText(password)
+        if (bundle != null) {
+            passwordId = bundle.getInt("id")
+            val name = bundle.getString("name")
+            val userName = bundle.getString("user_name")
+            val password = bundle.getString("password")
+            binding.edAccountType.setText(name)
+            binding.edAccountUserNameEmail.setText(userName)
+            binding.edAccountPassword.setText(password)
+        } else {
+            Toast.makeText(requireContext(), "No Data Fetch", Toast.LENGTH_SHORT).show()
+        }
     }
 
 }
