@@ -10,11 +10,11 @@ import com.example.chaintechnetworktask.View.Fragments.AddAccountFragment
 import com.example.chaintechnetworktask.databinding.ActivityHomeScreenBinding
 
 class HomeScreen : AppCompatActivity() {
-
-
     private val binding: ActivityHomeScreenBinding by lazy {
         ActivityHomeScreenBinding.inflate(layoutInflater)
     }
+
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         enableEdgeToEdge()
@@ -26,9 +26,9 @@ class HomeScreen : AppCompatActivity() {
         }
 
         binding.addDetails.setOnClickListener {
-//            val bottomSheetFragment = AddAccountFragment()
             val bottomSheetFragment = AddAccountFragment()
             bottomSheetFragment.show(supportFragmentManager, bottomSheetFragment.tag)
         }
+
     }
 }

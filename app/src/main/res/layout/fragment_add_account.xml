@@ -11,7 +11,7 @@
         android:id="@+id/view"
         android:layout_width="70dp"
         android:layout_height="4dp"
-        android:layout_margin="5dp"
+        android:layout_margin="10dp"
         android:background="@drawable/back_shape"
         android:backgroundTint="@color/topHeadingColor"
         android:padding="5dp"
@@ -41,6 +41,7 @@
                 android:layout_height="wrap_content"
                 android:fontFamily="@font/poppins_bold"
                 android:hint="Account Name"
+                android:singleLine="true"
                 android:textColor="@color/black" />
         </com.google.android.material.textfield.TextInputLayout>
 
@@ -55,7 +56,8 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:fontFamily="@font/poppins_bold"
-                android:hint="Username/Email"
+                android:hint="Username/ Email"
+                android:singleLine="true"
                 android:textColor="@color/black" />
         </com.google.android.material.textfield.TextInputLayout>
 
@@ -69,6 +71,7 @@
                 android:id="@+id/edAccountPassword"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
+                android:singleLine="true"
                 android:fontFamily="@font/poppins_bold"
                 android:hint="Password"
                 android:inputType="textPassword"
@@ -77,6 +80,7 @@
 
 
         <androidx.appcompat.widget.AppCompatButton
+            android:id="@+id/addAccount"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginStart="10dp"
@@ -87,10 +91,23 @@
             android:fontFamily="@font/poppins_bold"
             android:text="Add New Account"
             android:textAllCaps="false"
-
             android:textColor="@color/white"
             android:textSize="15sp"
             android:textStyle="bold" />
+
+        <com.github.ybq.android.spinkit.SpinKitView
+            android:id="@+id/loaderAddAcount"
+            style="@style/SpinKitView.Circle"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center"
+            android:padding="5dp"
+            android:visibility="gone"
+            app:SpinKit_Color="@color/appColor"
+            app:layout_constraintBottom_toBottomOf="@+id/login_button"
+            app:layout_constraintEnd_toEndOf="@+id/login_button"
+            app:layout_constraintStart_toStartOf="@+id/login_button"
+            app:layout_constraintTop_toTopOf="@+id/login_button" />
     </LinearLayout>
 
 
