@@ -1,3 +1,10 @@
 <resources>
     <string name="app_name">Chaintech Network Task</string>
+    <!-- TODO: Remove or change this placeholder text -->
+    <string name="hello_blank_fragment">Hello blank fragment</string>
+    <string name="delete">Delete</string>
+    <string name="edit">Edit</string>
+    <string name="account_details">Account Details</string>
+    <string name="username_email">Username/ Email</string>
+    <string name="fackbook">Fackbook</string>
 </resources>
