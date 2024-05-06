@@ -7,4 +7,5 @@
     <string name="account_details">Account Details</string>
     <string name="username_email">Username/ Email</string>
     <string name="fackbook">Fackbook</string>
+    <string name="account_type">Account Type</string>
 </resources>

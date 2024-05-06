@@ -2,6 +2,7 @@ package com.example.chaintechnetworktask.View.Fragments
 
 import android.annotation.SuppressLint
 import android.os.Bundle
+import android.util.Base64
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -12,8 +13,12 @@ import androidx.lifecycle.lifecycleScope
 import com.example.chaintechnetworktask.DataSource.Room.SavedPasswordEntity
 import com.example.chaintechnetworktask.ViewModel.MainViewModel
 import com.example.chaintechnetworktask.databinding.FragmentAddAccountBinding
+import com.example.chaintechnetworktask.encrypt
+import com.example.chaintechnetworktask.generateAESKey
 import com.google.android.material.bottomsheet.BottomSheetDialogFragment
 import kotlinx.coroutines.launch
+import javax.crypto.Cipher
+import javax.crypto.spec.SecretKeySpec
 
 class AddAccountFragment : BottomSheetDialogFragment() {
 
@@ -22,7 +27,6 @@ class AddAccountFragment : BottomSheetDialogFragment() {
     private lateinit var viewModel: MainViewModel
 
     var savedPassword = SavedPasswordEntity()
-
 
     @SuppressLint("ClickableViewAccessibility")
     override fun onCreateView(
@@ -40,16 +44,34 @@ class AddAccountFragment : BottomSheetDialogFragment() {
             val userNameEmail = binding.edAccountUserNameEmail.text.toString().trim()
             val password = binding.edAccountPassword.text.toString().trim()
 
-            if (accountName.isNotEmpty() && userNameEmail.isNotEmpty() && password.isNotEmpty()) {
+
+            isPasswordValid(password)
+
+            if (accountName.isNotEmpty() && userNameEmail.isNotEmpty() && password.isNotEmpty()
+            ) {
                 // All fields are filled, proceed with saving
                 savedPassword.accountName = accountName
                 savedPassword.userName_Email = userNameEmail
-                savedPassword.password = password
 
-                binding.addAccount.visibility = View.GONE
-                binding.loaderAddAcount.visibility = View.VISIBLE
-//                val savedPassword = SavedPassword(accountName, userNameEmail, password)
-                savedPasswordDetails(savedPassword)
+                if (isPasswordValid(password)) {
+                    val key = generateAESKey(accountName)
+
+                    val encryptPassword = encrypt(password, key)
+                    savedPassword.password = encryptPassword
+                    Toast.makeText(requireContext(), "Password is valid.", Toast.LENGTH_SHORT)
+                        .show()
+
+                    binding.addAccount.visibility = View.GONE
+                    binding.loaderAddAcount.visibility = View.VISIBLE
+                    savedPasswordDetails(savedPassword)
+                } else {
+                    Toast.makeText(
+                        requireContext(),
+                        "Password is invalid. Password must contain at least 8 characters including at least one uppercase letter, one digit, and one special character.",
+                        Toast.LENGTH_SHORT
+                    ).show()
+                }
+
             } else {
                 if (accountName.isEmpty()) {
                     binding.edAccountName.error = "Please fill Account Name"
@@ -77,5 +99,11 @@ class AddAccountFragment : BottomSheetDialogFragment() {
         }
 
     }
+
+    fun isPasswordValid(password: String): Boolean {
+        val passwordRegex = "^(?=.*[A-Z])(?=.*[0-9])(?=.*[@#$%^&+=])(?=\\S+$).{8,}$".toRegex()
+        return passwordRegex.matches(password)
+    }
+
 
 }

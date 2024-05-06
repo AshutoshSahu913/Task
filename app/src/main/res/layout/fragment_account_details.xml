@@ -5,6 +5,7 @@
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
     android:background="@android:color/transparent"
+
     tools:context=".View.Fragments.AccountDetailsFragment">
 
     <View
@@ -59,8 +60,8 @@
                 android:layout_height="wrap_content"
                 android:fontFamily="@font/poppins"
                 android:padding="4dp"
-                android:text="Account Type"
-                android:textColor="#CCCCCC"
+                android:text="@string/account_type"
+                android:textColor="@color/topHeadingColor"
                 android:textSize="12sp"
                 android:textStyle="bold" />
 
@@ -135,6 +136,7 @@
                 android:drawablePadding="5dp"
                 android:fontFamily="@font/poppins_bold"
                 android:inputType="textPassword"
+                android:longClickable="false"
                 android:minHeight="40sp"
                 android:padding="5dp"
                 android:text="*******"
@@ -145,8 +147,10 @@
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_marginTop="10dp"
-            android:layout_marginBottom="10dp"
+            android:layout_marginTop="20dp"
+            android:padding="5dp"
+            android:gravity="center_vertical"
+
             android:orientation="horizontal">
 
             <androidx.appcompat.widget.AppCompatButton
@@ -154,7 +158,7 @@
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
                 android:layout_marginStart="10dp"
-                android:layout_marginTop="10dp"
+
                 android:layout_marginEnd="10dp"
                 android:layout_weight="1"
                 android:background="@drawable/btn_shape"
@@ -171,7 +175,7 @@
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
                 android:layout_marginStart="10dp"
-                android:layout_marginTop="10dp"
+
                 android:layout_marginEnd="10dp"
                 android:layout_weight="1"
                 android:background="@drawable/btn_shape"

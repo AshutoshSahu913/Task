@@ -62,4 +62,6 @@ dependencies {
     implementation("androidx.lifecycle:lifecycle-viewmodel-ktx:2.7.0")
 
     implementation ("com.github.ybq:Android-SpinKit:1.4.0")
+
+    implementation("androidx.biometric:biometric:1.2.0-alpha05")
 }
