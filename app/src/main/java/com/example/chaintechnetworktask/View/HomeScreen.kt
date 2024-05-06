@@ -24,11 +24,6 @@ class HomeScreen : AppCompatActivity() {
     private lateinit var passwordAdapter: PasswordAdapter
 
 
-    override fun onStart() {
-        super.onStart()
-        //is this function to get data from database
-        getSavedPassword()
-    }
     override fun onCreate(savedInstanceState: Bundle?) {
 
         super.onCreate(savedInstanceState)
@@ -40,6 +35,10 @@ class HomeScreen : AppCompatActivity() {
             v.setPadding(systemBars.left, systemBars.top, systemBars.right, systemBars.bottom)
             insets
         }
+
+
+        //is this function to get data from database
+        getSavedPassword()
 
         binding.addDetails.setOnClickListener {
             val bottomSheetFragment = AddAccountFragment()
@@ -66,7 +65,6 @@ class HomeScreen : AppCompatActivity() {
             passwordAdapter = PasswordAdapter(
                 onClickItem = ::onClickItem,
                 this@HomeScreen,
-                passwordList
             )
 
             if (passwordList.isEmpty()) {
@@ -80,6 +78,7 @@ class HomeScreen : AppCompatActivity() {
     private fun onClickItem(accountDetailsModel: AccountDetailsModel?) {
         val bundle = Bundle()
         if (accountDetailsModel != null) {
+            bundle.putInt("id", accountDetailsModel.id)
             bundle.putString("name", accountDetailsModel.accountName)
             bundle.putString("user_name", accountDetailsModel.userName_Email)
             bundle.putString("password", accountDetailsModel.password)

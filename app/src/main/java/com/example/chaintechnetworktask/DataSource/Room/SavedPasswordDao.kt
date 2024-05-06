@@ -15,4 +15,7 @@ interface SavedPasswordDao {
 
     @Query("SELECT * FROM SavedPassword")
     fun getSavedPassword(): LiveData<List<SavedPasswordEntity>>
+
+    @Query("DELETE FROM SavedPassword Where id = :passwordId")
+    suspend fun deleteSavedPassword(passwordId: Int)
 }

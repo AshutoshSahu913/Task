@@ -20,4 +20,6 @@ class MainViewModel(application: Application) : AndroidViewModel(application) {
     fun getSavedPassword(): LiveData<List<SavedPasswordEntity>> =
         appRepository.getSavedPassword()
 
+    suspend fun deleteSavedPassword(passwordId: Int) =
+        appRepository.deleteSavedPassword(passwordId = passwordId)
 }

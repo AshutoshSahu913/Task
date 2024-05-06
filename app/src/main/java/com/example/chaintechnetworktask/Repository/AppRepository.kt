@@ -11,4 +11,7 @@ class AppRepository(val savedPasswordDao: SavedPasswordDao) {
 
     fun getSavedPassword(): LiveData<List<SavedPasswordEntity>> =
         savedPasswordDao.getSavedPassword()
+
+    suspend fun deleteSavedPassword(passwordId: Int) =
+        savedPasswordDao.deleteSavedPassword(passwordId = passwordId)
 }

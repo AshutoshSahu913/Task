@@ -44,11 +44,11 @@ class AddAccountFragment : BottomSheetDialogFragment() {
                 savedPassword.accountName = accountName
                 savedPassword.userName_Email = userNameEmail
                 savedPassword.password = password
+
+                binding.addAccount.visibility = View.GONE
                 binding.loaderAddAcount.visibility = View.VISIBLE
 //                val savedPassword = SavedPassword(accountName, userNameEmail, password)
                 savedPasswordDetails(savedPassword)
-
-
             } else {
                 if (accountName.isEmpty()) {
                     binding.edAccountName.error = "Please fill Account Name"

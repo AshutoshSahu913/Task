@@ -78,7 +78,6 @@
                 android:textColor="@color/black" />
         </com.google.android.material.textfield.TextInputLayout>
 
-
         <androidx.appcompat.widget.AppCompatButton
             android:id="@+id/addAccount"
             android:layout_width="match_parent"
@@ -86,6 +85,7 @@
             android:layout_marginStart="10dp"
             android:layout_marginTop="10dp"
             android:layout_marginEnd="10dp"
+            android:visibility="visible"
             android:background="@drawable/btn_shape"
             android:backgroundTint="@color/black"
             android:fontFamily="@font/poppins_bold"

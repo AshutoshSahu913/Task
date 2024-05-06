@@ -12,12 +12,12 @@ import com.example.chaintechnetworktask.databinding.SavePasswordItemsBinding
 class PasswordAdapter(
     val onClickItem: ((AccountDetailsModel?) -> Unit)?,
     val context: Context,
-    var savePassList: ArrayList<AccountDetailsModel>
+
 ) :
 
     RecyclerView.Adapter<PasswordAdapter.viewHolder>() {
 
-     var diffUtil = object : DiffUtil.ItemCallback<AccountDetailsModel>() {
+    var diffUtil = object : DiffUtil.ItemCallback<AccountDetailsModel>() {
         override fun areItemsTheSame(
             oldItem: AccountDetailsModel, newItem: AccountDetailsModel
         ): Boolean {
@@ -62,6 +62,6 @@ class PasswordAdapter(
     }
 
     override fun getItemCount(): Int {
-        return savePassList.size
+        return differ.currentList.size
     }
 }
