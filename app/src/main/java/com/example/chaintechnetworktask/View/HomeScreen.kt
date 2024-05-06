@@ -1,5 +1,6 @@
 package com.example.chaintechnetworktask.View
 
+import android.annotation.SuppressLint
 import android.os.Bundle
 import android.view.View
 import androidx.activity.enableEdgeToEdge
@@ -22,7 +23,6 @@ class HomeScreen : AppCompatActivity() {
     }
     private lateinit var viewModel: MainViewModel
     private lateinit var passwordAdapter: PasswordAdapter
-
 
     override fun onCreate(savedInstanceState: Bundle?) {
 
@@ -47,6 +47,7 @@ class HomeScreen : AppCompatActivity() {
     }
 
 
+    @SuppressLint("NotifyDataSetChanged")
     private fun getSavedPassword() {
         viewModel.getSavedPassword().observeForever { savedPass ->
             val passwordList = arrayListOf<AccountDetailsModel>()
@@ -72,6 +73,7 @@ class HomeScreen : AppCompatActivity() {
             }
             binding.rvSavePassword.adapter = passwordAdapter
             passwordAdapter.differ.submitList(passwordList)
+            passwordAdapter.notifyDataSetChanged()
         }
     }
 

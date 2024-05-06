@@ -9,17 +9,23 @@ import android.view.MotionEvent
 import android.view.View
 import android.view.ViewGroup
 import android.widget.Toast
+import androidx.core.app.ActivityCompat.recreate
 import androidx.lifecycle.ViewModelProvider
 import androidx.lifecycle.lifecycleScope
+import com.example.chaintechnetworktask.DataSource.Room.SavedPasswordEntity
 import com.example.chaintechnetworktask.R
 import com.example.chaintechnetworktask.ViewModel.MainViewModel
 import com.example.chaintechnetworktask.databinding.FragmentAccountDetailsBinding
 import com.google.android.material.bottomsheet.BottomSheetDialogFragment
+import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
+import kotlinx.coroutines.withContext
 
 class AccountDetailsFragment : BottomSheetDialogFragment() {
 
     lateinit var binding: FragmentAccountDetailsBinding
+
+    var updatePassword = SavedPasswordEntity()
 
     lateinit var viewModel: MainViewModel
     var passwordId: Int = 0
@@ -69,14 +75,70 @@ class AccountDetailsFragment : BottomSheetDialogFragment() {
         binding.deleteBtn.setOnClickListener {
             deleteSavedPasswords(passwordId)
         }
+
+        binding.editBtn.setOnClickListener {
+            val name = binding.edAccountType.text.toString().trim()
+            val username = binding.edAccountUserNameEmail.text.toString().trim()
+            val password = binding.edAccountPassword.text.toString().trim()
+
+
+            updateSavedPasswords(accountName = name, usernameEmail = username, password = password)
+
+//            updatePassword.accountName =
+//            updatePassword.userName_Email =
+//            updatePassword.password =
+//            if (updatePassword.accountName!!.isNotEmpty() && updatePassword.userName_Email!!.isNotEmpty() && updatePassword.password!!.isNotEmpty()) {
+//
+//            }
+//        } else {
+////            if (binding.edAccountType.text.isEmpty()) {
+////                binding.edAccountType.error = "Please fill Account Name"
+////            }
+////            if (binding.edAccountUserNameEmail.text.isEmpty()) {
+////                binding.edAccountUserNameEmail.error = "Please fill Username/Email"
+////            }
+////            if (binding.edAccountPassword.text.isEmpty()) {
+////                binding.edAccountPassword.error = "Please fill Password"
+////            }
+//////        }
+//        }
+        }
         return binding.root
+    }
+
+    //
+    private fun updateSavedPasswords(
+        accountName: String,
+        usernameEmail: String,
+        password: String
+    ) {
+        lifecycleScope.launch {
+            val updatedPassword = SavedPasswordEntity()
+
+            updatedPassword.accountName = accountName
+            updatedPassword.userName_Email = usernameEmail
+            updatedPassword.password = password
+            updatedPassword.id = passwordId
+            lifecycleScope.launch {
+                viewModel.updateSavedPassword(
+                    updatedPassword
+                )
+                Toast.makeText(requireContext(), "Update Details", Toast.LENGTH_SHORT).show()
+                dismiss()
+                withContext(Dispatchers.Main) {
+                    recreate(requireActivity())
+                }
+            }
+        }
     }
 
     private fun deleteSavedPasswords(id: Int) {
         lifecycleScope.launch {
             viewModel.deleteSavedPassword(id)
             Toast.makeText(requireContext(), "Deleted Successfully !", Toast.LENGTH_SHORT).show()
+
             dismiss()
+            recreate(requireActivity())
         }
     }
 

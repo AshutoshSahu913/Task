@@ -22,4 +22,12 @@ class MainViewModel(application: Application) : AndroidViewModel(application) {
 
     suspend fun deleteSavedPassword(passwordId: Int) =
         appRepository.deleteSavedPassword(passwordId = passwordId)
+
+
+    suspend fun updateSavedPassword(
+        savedPassword: SavedPasswordEntity
+    ) =
+        appRepository.updateSavedPassword(
+            savedPassword=savedPassword
+        )
 }

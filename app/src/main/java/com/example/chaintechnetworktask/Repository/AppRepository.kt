@@ -14,4 +14,11 @@ class AppRepository(val savedPasswordDao: SavedPasswordDao) {
 
     suspend fun deleteSavedPassword(passwordId: Int) =
         savedPasswordDao.deleteSavedPassword(passwordId = passwordId)
+
+    suspend fun updateSavedPassword(
+        savedPassword: SavedPasswordEntity
+    ) =
+        savedPasswordDao.updateSavedPassword(
+            savedPassword=savedPassword
+        )
 }

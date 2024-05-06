@@ -5,6 +5,7 @@ import androidx.room.Dao
 import androidx.room.Insert
 import androidx.room.OnConflictStrategy
 import androidx.room.Query
+import androidx.room.Update
 
 @Dao
 interface SavedPasswordDao {
@@ -18,4 +19,10 @@ interface SavedPasswordDao {
 
     @Query("DELETE FROM SavedPassword Where id = :passwordId")
     suspend fun deleteSavedPassword(passwordId: Int)
+
+    @Update
+    suspend fun updateSavedPassword(
+        savedPassword: SavedPasswordEntity
+    )
+
 }

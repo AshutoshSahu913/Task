@@ -6,6 +6,7 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.Toast
+import androidx.core.app.ActivityCompat.recreate
 import androidx.lifecycle.ViewModelProvider
 import androidx.lifecycle.lifecycleScope
 import com.example.chaintechnetworktask.DataSource.Room.SavedPasswordEntity
@@ -61,7 +62,6 @@ class AddAccountFragment : BottomSheetDialogFragment() {
                 }
             }
         }
-
         return binding.root
     }
 
@@ -73,6 +73,7 @@ class AddAccountFragment : BottomSheetDialogFragment() {
             binding.loaderAddAcount.visibility = View.GONE
             Toast.makeText(requireContext(), "Saved Password Details", Toast.LENGTH_SHORT).show()
             dismiss()
+            recreate(requireActivity())
         }
 
     }
