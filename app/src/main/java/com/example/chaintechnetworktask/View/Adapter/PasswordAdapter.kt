@@ -3,20 +3,50 @@ package com.example.chaintechnetworktask.View.Adapter
 import android.content.Context
 import android.view.LayoutInflater
 import android.view.ViewGroup
+import androidx.recyclerview.widget.AsyncListDiffer
+import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.RecyclerView
 import com.example.chaintechnetworktask.DataSource.Models.AccountDetailsModel
 import com.example.chaintechnetworktask.databinding.SavePasswordItemsBinding
 
-class PasswordAdapter(var context: Context, var savePassList: ArrayList<AccountDetailsModel>) :
+class PasswordAdapter(
+    val onClickItem: ((AccountDetailsModel?) -> Unit)?,
+    val context: Context,
+    var savePassList: ArrayList<AccountDetailsModel>
+) :
 
     RecyclerView.Adapter<PasswordAdapter.viewHolder>() {
 
+     var diffUtil = object : DiffUtil.ItemCallback<AccountDetailsModel>() {
+        override fun areItemsTheSame(
+            oldItem: AccountDetailsModel, newItem: AccountDetailsModel
+        ): Boolean {
+            return oldItem.id == newItem.id
+        }
+
+        override fun areContentsTheSame(
+            oldItem: AccountDetailsModel, newItem: AccountDetailsModel
+        ): Boolean {
+            return oldItem == newItem
+        }
+    }
+
+    val differ = AsyncListDiffer(this, diffUtil)
 
     inner class viewHolder(var binding: SavePasswordItemsBinding) :
         RecyclerView.ViewHolder(binding.root) {
         fun bind(position: Int) {
+            val passwordSaved = differ.currentList[position]
+//            val model = savePassList[position]
+            binding.apply {
+                accountName.text = passwordSaved.accountName
+                password.text = passwordSaved.password
 
-
+                //click a single items
+                binding.cardLayout.setOnClickListener {
+                    onClickItem?.invoke(passwordSaved)
+                }
+            }
         }
 
     }

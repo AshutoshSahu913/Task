@@ -12,7 +12,7 @@
         android:layout_width="70dp"
         android:layout_height="4dp"
         android:padding="5dp"
-        android:layout_margin="5dp"
+        android:layout_margin="10dp"
         android:background="@drawable/back_shape"
         android:backgroundTint="@color/topHeadingColor"
         app:layout_constraintEnd_toEndOf="parent"
@@ -20,7 +20,8 @@
         app:layout_constraintTop_toTopOf="parent" />
 
     <TextView
-        android:id="@+id/accountName"
+
+        android:id="@+id/textView"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_gravity="center"
@@ -41,12 +42,11 @@
         android:layout_width="0dp"
         android:layout_height="wrap_content"
         android:layout_margin="10dp"
-        android:layout_marginBottom="10dp"
         android:orientation="vertical"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/accountName">
+        app:layout_constraintTop_toBottomOf="@+id/textView">
 
 
         <LinearLayout
@@ -96,6 +96,7 @@
                 android:textStyle="bold" />
 
             <EditText
+                android:id="@+id/edAccountUserName_email"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:background="@android:color/transparent"

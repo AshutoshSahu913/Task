@@ -9,7 +9,6 @@ import android.widget.Toast
 import androidx.lifecycle.ViewModelProvider
 import androidx.lifecycle.lifecycleScope
 import com.example.chaintechnetworktask.DataSource.Room.SavedPasswordEntity
-import com.example.chaintechnetworktask.View.Adapter.PasswordAdapter
 import com.example.chaintechnetworktask.ViewModel.MainViewModel
 import com.example.chaintechnetworktask.databinding.FragmentAddAccountBinding
 import com.google.android.material.bottomsheet.BottomSheetDialogFragment
@@ -23,7 +22,6 @@ class AddAccountFragment : BottomSheetDialogFragment() {
 
     var savedPassword = SavedPasswordEntity()
 
-    private lateinit var savedPasswordAdapter: PasswordAdapter
 
     @SuppressLint("ClickableViewAccessibility")
     override fun onCreateView(

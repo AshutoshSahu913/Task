@@ -20,11 +20,12 @@ class AccountDetailsFragment : BottomSheetDialogFragment() {
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
-    ): View? {
+    ): View {
         // Inflate the layout for this fragment
         binding = FragmentAccountDetailsBinding.inflate(layoutInflater)
 
         binding.edAccountPassword.setOnTouchListener { _, event ->
+
             val drawableRight = 2 // Assuming the eye icon is set to the end drawable
             if (event.action == MotionEvent.ACTION_UP) {
                 if (event.rawX >= (binding.edAccountPassword.right - binding.edAccountPassword.compoundDrawables[drawableRight].bounds.width())) {
@@ -53,7 +54,21 @@ class AccountDetailsFragment : BottomSheetDialogFragment() {
             }
             false
         }
+
+
+        getData()
+
         return binding.root
+    }
+
+    private fun getData() {
+        val bundle = arguments
+        val name = bundle?.getString("name")
+        val userName = bundle?.getString("user_name")
+        val password = bundle?.getString("password")
+        binding.edAccountType.setText(name)
+        binding.edAccountUserNameEmail.setText(userName)
+        binding.edAccountPassword.setText(password)
     }
 
 }
